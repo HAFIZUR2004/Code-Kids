@@ -1,92 +1,99 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
-export default function Navbar({ user, onLogout }) {
-  const location = useLocation();
+const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-40">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Left Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-              CK
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-bold text-lg">CodeKids</span>
-              <div className="text-xs text-slate-500">Learn · Play · Create</div>
-            </div>
-          </Link>
+    <header className="bg-white shadow p-4 flex justify-between items-center px-6 relative">
+      {/* Left: Logo */}
+      <Link to="/" className="font-bold text-xl text-blue-600">
+        CodeKids
+      </Link>
 
-          {/* Center Nav: Logged in only */}
-          {user && (
-            <nav className="hidden md:flex md:items-center md:gap-2">
-              <ul className="flex items-center gap-2">
-                <li>
-                  <Link
-                    to="/"
-                    className={`px-3 py-2 rounded hover:bg-slate-100 ${
-                      location.pathname === "/" ? "font-semibold" : ""
-                    }`}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/profile"
-                    className={`px-3 py-2 rounded hover:bg-slate-100 ${
-                      location.pathname === "/profile" ? "font-semibold" : ""
-                    }`}
-                  >
-                    My Profile
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          )}
+      {/* Center: Home */}
+      <nav className="hidden md:flex gap-6">
+        <Link
+          to="/"
+          className="text-gray-700 hover:text-blue-600 font-medium"
+        >
+          Home
+        </Link>
+      </nav>
 
-          {/* Right Auth Buttons */}
-          <div className="flex items-center gap-3">
-            {!user ? (
-              <Link
-                to="/signup"
-                className="px-3 py-2 rounded-md bg-blue-500 text-white hover:opacity-95"
-              >
-                Signup
-              </Link>
-            ) : (
-              <div className="flex items-center gap-3">
-                {/* Avatar + Tooltip */}
-                <button
-                  title={user.displayName || user.email}
-                  className="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-200 shadow-sm"
+      {/* Right: Profile */}
+      <div className="relative">
+        {user ? (
+          <div>
+            {/* Show Profile Button */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="px-3 py-1 bg-blue-500 text-white rounded"
+            >
+              Show Profile
+            </button>
+
+            {/* Dropdown */}
+            {open && (
+              <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-60 border py-2 z-50">
+                {/* User Info */}
+                <div className="flex items-center gap-3 px-4 py-3 border-b">
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt="user"
+                      className="w-12 h-12 rounded-full border"
+                    />
+                  ) : (
+                    <FaUserCircle className="w-12 h-12 text-gray-600" />
+                  )}
+                  <div>
+                    <p className="font-semibold">{user.displayName || "User"}</p>
+                    <p className="text-sm text-gray-500">{user.email}</p>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setOpen(false)}
                 >
-                  <img
-                    src={
-                      user.photoURL ||
-                      `https://api.dicebear.com/6.x/initials/svg?seed=${encodeURIComponent(
-                        user.displayName || user.email || "user"
-                      )}`
-                    }
-                    alt={user.displayName || "User avatar"}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-
-                {/* Logout Button */}
-                <button
-                  onClick={onLogout}
-                  className="px-3 py-2 rounded-md bg-red-50 text-red-600 border border-red-100 hover:bg-red-100"
+                  View Profile
+                </Link>
+                <Link
+                  to="/edit-profile"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setOpen(false)}
                 >
-                  Logout
+                  Edit Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
+                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 flex items-center gap-2"
+                >
+                  <FaSignOutAlt /> Sign Out
                 </button>
               </div>
             )}
           </div>
-        </div>
+        ) : (
+          <Link
+            to="/signup"
+            className="px-3 py-1 bg-blue-500 text-white rounded"
+          >
+            Signup
+          </Link>
+        )}
       </div>
     </header>
   );
-}
+};
+
+export default Navbar;

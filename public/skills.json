@@ -1,0 +1,74 @@
+[
+  {
+    "skillId": 1,
+    "skillName": "JavaScript Basics",
+    "providerName": "Sarah Lee",
+    "providerEmail": "sarah@codekids.com",
+    "price": 25,
+    "rating": 4.7,
+    "slotsAvailable": 5,
+    "description": "Master the fundamentals of JavaScript programming including variables, loops, functions, and basic DOM manipulation. Perfect for beginners looking to start their coding journey.",
+    "image": "https://miro.medium.com/v2/1*LyZcwuLWv2FArOumCxobpA.png",
+    "category": "Programming"
+  },
+  {
+    "skillId": 2,
+    "skillName": "React for Beginners",
+    "providerName": "David Chen",
+    "providerEmail": "david@codekids.com",
+    "price": 30,
+    "rating": 4.9,
+    "slotsAvailable": 4,
+    "description": "Learn how to build interactive web applications using React. Covering components, state management, props, and basic hooks, this course will help beginners create dynamic, responsive websites.",
+    "image": "https://i.postimg.cc/example-react.png",
+    "category": "Web Development"
+  },
+  {
+    "skillId": 3,
+    "skillName": "HTML & CSS Crash Course",
+    "providerName": "Emma Watson",
+    "providerEmail": "emma@codekids.com",
+    "price": 15,
+    "rating": 4.6,
+    "slotsAvailable": 6,
+    "description": "A comprehensive crash course on HTML and CSS to design and style web pages. Learn about semantic tags, layouts, flexbox, grid, colors, and typography to build visually appealing websites.",
+    "image": "https://i.postimg.cc/example-html.png",
+    "category": "Web Development"
+  },
+  {
+    "skillId": 4,
+    "skillName": "Python Programming for Kids",
+    "providerName": "Michael Brown",
+    "providerEmail": "michael@codekids.com",
+    "price": 20,
+    "rating": 4.8,
+    "slotsAvailable": 5,
+    "description": "Fun and easy introduction to Python programming for kids. Learn about variables, loops, functions, and simple projects that make coding enjoyable and interactive for young learners.",
+    "image": "https://i.postimg.cc/example-python.png",
+    "category": "Programming"
+  },
+  {
+    "skillId": 5,
+    "skillName": "Intro to Game Development",
+    "providerName": "Lisa Green",
+    "providerEmail": "lisa@codekids.com",
+    "price": 35,
+    "rating": 4.9,
+    "slotsAvailable": 3,
+    "description": "Step into the world of game development using Unity. Learn the basics of creating games, character movement, simple animations, and interactive gameplay mechanics in a beginner-friendly environment.",
+    "image": "https://i.postimg.cc/example-game.png",
+    "category": "Game Development"
+  },
+  {
+    "skillId": 6,
+    "skillName": "Scratch Programming",
+    "providerName": "Tom Wilson",
+    "providerEmail": "tom@codekids.com",
+    "price": 10,
+    "rating": 4.5,
+    "slotsAvailable": 8,
+    "description": "Introduce kids to programming concepts using Scratch. Learn to create interactive stories, games, and animations while understanding loops, conditions, and events in a visual coding environment.",
+    "image": "https://i.postimg.cc/example-scratch.png",
+    "category": "Programming"
+  }
+]

@@ -118,5 +118,4 @@ const Login = () => {
 export default Login;
 
 
-// accah tumi amr kotha suno kono code likho na joto khon nh porjont ami liktey bolci
 
