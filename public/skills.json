@@ -8,7 +8,7 @@
     "rating": 4.7,
     "slotsAvailable": 5,
     "description": "Master the fundamentals of JavaScript programming including variables, loops, functions, and basic DOM manipulation. Perfect for beginners looking to start their coding journey.",
-    "image": "https://miro.medium.com/v2/1*LyZcwuLWv2FArOumCxobpA.png",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s",
     "category": "Programming"
   },
   {
@@ -20,7 +20,7 @@
     "rating": 4.9,
     "slotsAvailable": 4,
     "description": "Learn how to build interactive web applications using React. Covering components, state management, props, and basic hooks, this course will help beginners create dynamic, responsive websites.",
-    "image": "https://i.postimg.cc/example-react.png",
+    "image": "https://assist-software.net/_next/image?url=https%3A%2F%2Fcdn.assist.ro%2Fs3fs-public%2Fimage-paragraph%2FReact%252520Basics%252520for%252520Beginners%252520in%2525202018%252520%252520ASSIST%252520Software%252520%252520Ioana%252520Ianovici%252520blog_0.png&w=3840&q=75",
     "category": "Web Development"
   },
   {
@@ -32,7 +32,7 @@
     "rating": 4.6,
     "slotsAvailable": 6,
     "description": "A comprehensive crash course on HTML and CSS to design and style web pages. Learn about semantic tags, layouts, flexbox, grid, colors, and typography to build visually appealing websites.",
-    "image": "https://i.postimg.cc/example-html.png",
+    "image": "https://img-c.udemycdn.com/course/750x422/92760_a459_10.jpg",
     "category": "Web Development"
   },
   {
@@ -44,7 +44,7 @@
     "rating": 4.8,
     "slotsAvailable": 5,
     "description": "Fun and easy introduction to Python programming for kids. Learn about variables, loops, functions, and simple projects that make coding enjoyable and interactive for young learners.",
-    "image": "https://i.postimg.cc/example-python.png",
+    "image": "https://roboto.sg/blog/wp-content/uploads/2021/07/python-a-good-beginner-programming-language-for-kids.jpg",
     "category": "Programming"
   },
   {
@@ -56,7 +56,7 @@
     "rating": 4.9,
     "slotsAvailable": 3,
     "description": "Step into the world of game development using Unity. Learn the basics of creating games, character movement, simple animations, and interactive gameplay mechanics in a beginner-friendly environment.",
-    "image": "https://i.postimg.cc/example-game.png",
+    "image": "https://cdn.sanity.io/images/fuvbjjlp/production/0901ee09f3cc9dc8f4608f82f7cf8bd996a28f6f-1200x630.png",
     "category": "Game Development"
   },
   {
@@ -68,7 +68,7 @@
     "rating": 4.5,
     "slotsAvailable": 8,
     "description": "Introduce kids to programming concepts using Scratch. Learn to create interactive stories, games, and animations while understanding loops, conditions, and events in a visual coding environment.",
-    "image": "https://i.postimg.cc/example-scratch.png",
+    "image": "https://www.macworld.com/wp-content/uploads/2023/01/learn_scratch_programming_on_mac.jpg?quality=50&strip=all",
     "category": "Programming"
   }
 ]

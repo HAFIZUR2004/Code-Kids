@@ -33,7 +33,7 @@ const router = createBrowserRouter([
 
       // Profile
       {
-        path: "/profile",
+        path: "/view-profile",
         element: <Profile />,
       },
 
@@ -42,6 +42,10 @@ const router = createBrowserRouter([
         path: "/edit-profile",
         element: <EditProfile />,
       },
+      // {
+      //   path: "/edit-profile",
+      //   element: <EditProfile />,
+      // },
 
       // Protected Skill Details
       {

@@ -1,92 +1,104 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaSignOutAlt,
+  FaEdit,
+  FaUser,
+  FaEye,
+  FaHome,
+} from "react-icons/fa";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow p-4 flex justify-between items-center px-6 relative">
+    <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50">
       {/* Left: Logo */}
-      <Link to="/" className="font-bold text-xl text-blue-600">
+      <Link
+        to="/"
+        className="text-2xl font-bold text-blue-600 tracking-wide hover:text-blue-800 transition"
+      >
         CodeKids
       </Link>
 
-      {/* Center: Home */}
-      <nav className="hidden md:flex gap-6">
+      {/* Center: Home Button */}
+      <nav className="absolute left-1/2 transform -translate-x-1/2">
         <Link
           to="/"
-          className="text-gray-700 hover:text-blue-600 font-medium"
+          className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition text-lg font-semibold"
         >
+          <FaHome />
           Home
         </Link>
       </nav>
 
-      {/* Right: Profile */}
+      {/* Right: Profile Section */}
       <div className="relative">
         {user ? (
-          <div>
-            {/* Show Profile Button */}
+          <>
             <button
               onClick={() => setOpen(!open)}
-              className="px-3 py-1 bg-blue-500 text-white rounded"
+              className="flex items-center gap-3 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-full transition"
             >
-              Show Profile
+              <img
+                src={
+                  user.photoURL ||
+                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                }
+                alt="Profile"
+                className="w-9 h-9 rounded-full border-2 border-blue-400"
+              />
+              <div className="flex flex-col text-left">
+                <span className="text-gray-800 font-semibold text-sm">
+                  {user.displayName || "User Name"}
+                </span>
+                <span className="text-gray-500 text-xs">
+                  {user.email || "user@gmail.com"}
+                </span>
+              </div>
+              <MdKeyboardArrowDown
+                className={`text-gray-700 text-xl transition-transform ${
+                  open ? "rotate-180" : ""
+                }`}
+              />
             </button>
 
-            {/* Dropdown */}
+            {/* Dropdown Menu */}
             {open && (
-              <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-60 border py-2 z-50">
-                {/* User Info */}
-                <div className="flex items-center gap-3 px-4 py-3 border-b">
-                  {user.photoURL ? (
-                    <img
-                      src={user.photoURL}
-                      alt="user"
-                      className="w-12 h-12 rounded-full border"
-                    />
-                  ) : (
-                    <FaUserCircle className="w-12 h-12 text-gray-600" />
-                  )}
-                  <div>
-                    <p className="font-semibold">{user.displayName || "User"}</p>
-                    <p className="text-sm text-gray-500">{user.email}</p>
-                  </div>
-                </div>
-
-                {/* Actions */}
+              <div className="absolute right-0 mt-3 w-56 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden animate-fade-in">
                 <Link
-                  to="/profile"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  to="/view-profile"
+                  className="flex items-center gap-3 px-4 py-2 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition"
                   onClick={() => setOpen(false)}
                 >
-                  View Profile
+                  <FaEye /> View Profile
                 </Link>
                 <Link
                   to="/edit-profile"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  className="flex items-center gap-3 px-4 py-2 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition"
                   onClick={() => setOpen(false)}
                 >
-                  Edit Profile
+                  <FaEdit /> Edit Profile
                 </Link>
                 <button
                   onClick={() => {
                     logout();
                     setOpen(false);
                   }}
-                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 flex items-center gap-2"
+                  className="flex w-full items-center gap-3 px-4 py-2 hover:bg-red-50 text-gray-700 hover:text-red-600 transition"
                 >
-                  <FaSignOutAlt /> Sign Out
+                  <FaSignOutAlt /> Logout
                 </button>
               </div>
             )}
-          </div>
+          </>
         ) : (
           <Link
             to="/signup"
-            className="px-3 py-1 bg-blue-500 text-white rounded"
+            className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-medium"
           >
             Signup
           </Link>
