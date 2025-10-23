@@ -3,6 +3,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { FaUserCircle, FaEdit, FaSave } from "react-icons/fa";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../firebase.config";
 
 const EditProfile = () => {
   const { user } = useContext(AuthContext);
@@ -16,10 +18,17 @@ const EditProfile = () => {
     }
   }, [user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate profile update
-    toast.success("Profile updated successfully!");
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: photo,
+      });
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update profile: " + error.message);
+    }
   };
 
   return (

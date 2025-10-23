@@ -8,6 +8,7 @@ import { useSpring, animated } from "@react-spring/web";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
 
   // Dropdown animation
   const dropdownAnimation = useSpring({
@@ -17,7 +18,7 @@ const Navbar = () => {
     config: { tension: 300, friction: 20 },
   });
 
-  // Ripple Halo animation behind profile
+  // Ripple Halo animation
   const haloAnimation = useSpring({
     from: { scale: 0.8, opacity: 0.6 },
     to: async (next) => {
@@ -50,11 +51,11 @@ const Navbar = () => {
         </Link>
       </nav>
 
-      {/* Profile */}
+      {/* Profile Section */}
       <div className="relative">
         {user ? (
           <>
-            {/* Ripple Halo behind profile */}
+            {/* Ripple Halo */}
             <animated.div
               style={haloAnimation}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full 
@@ -64,16 +65,28 @@ const Navbar = () => {
             {/* Profile Button */}
             <button
               onClick={() => setOpen(!open)}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
               className="relative z-10 flex items-center gap-3 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-full transition"
             >
-              <img
-                src={
-                  user.photoURL ||
-                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                }
-                alt="Profile"
-                className="w-9 h-9 rounded-full border-2 border-blue-400"
-              />
+              <div className="relative">
+                <img
+                  src={
+                    user.photoURL ||
+                    "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  }
+                  alt="Profile"
+                  className="w-9 h-9 rounded-full border-2 border-blue-400"
+                />
+
+                {/* Tooltip (username on hover) */}
+                {hover && (
+                  <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-lg shadow-lg whitespace-nowrap">
+                    {user.displayName || "User Name"}
+                  </div>
+                )}
+              </div>
+
               <div className="flex flex-col text-left">
                 <span className="text-gray-800 font-semibold text-sm">
                   {user.displayName || "User Name"}
@@ -89,7 +102,7 @@ const Navbar = () => {
               />
             </button>
 
-            {/* Animated Dropdown Menu */}
+            {/* Dropdown Menu */}
             <animated.div
               style={dropdownAnimation}
               className="absolute right-0 mt-3 w-56 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-50"
