@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "name": "Jhankar Mahbub",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchQaWL31oza9TgPbZamoQOmLqyu55-_TIfg&s",
+    "bio": "Fullstack Web Development Mentor",
+    "skills": ["JavaScript", "React", "Node.js", "MongoDB"],
+    "followers": 12500,
+    "projects": 150,
+    "isVerified": true
+  },
+  {
+    "id": 2,
+    "name": "Abdur Rakib",
+    "image": "https://i.ibb.co.com/LDmZmXp4/RAKIB.jpg",
+    "bio": "React & Frontend Expert",
+    "skills": ["React", "Redux", "TailwindCSS"],
+    "followers": 9800,
+    "projects": 120,
+    "isVerified": true
+  },
+  {
+    "id": 3,
+    "name": "Md. Najmol Hasan",
+    "image": "https://i.ibb.co.com/VW4Yr9rT/Md-Najmol-Hasan.webp",
+    "bio": "Backend Development Mentor",
+    "skills": ["Node.js", "Express", "MongoDB", "SQL"],
+    "followers": 7500,
+    "projects": 95,
+    "isVerified": true
+  },
+  {
+    "id": 4,
+    "name": "Ferdous Zihad",
+    "image": "https://i.ibb.co.com/5WDftj8B/Ferdous-Zihad.jpg",
+    "bio": "UI/UX Design Mentor",
+    "skills": ["Figma", "Adobe XD", "TailwindCSS"],
+    "followers": 6400,
+    "projects": 85,
+    "isVerified": true
+  },
+  {
+    "id": 5,
+    "name": "Abu Jakaria",
+    "image": "https://i.ibb.co.com/WpBhTtb8/Abu-Jakaria.jpg",
+    "bio": "Mobile App Development Mentor",
+    "skills": ["Flutter", "Dart", "React Native"],
+    "followers": 8200,
+    "projects": 110,
+    "isVerified": true
+  },
+  {
+    "id": 6,
+    "name": "Mohammad Anisul Islam",
+    "image": "https://i.ibb.co.com/fYTDzS6k/Mohammad-Anisul-Islam.jpg",
+    "bio": "Frontend Development Mentor",
+    "skills": ["HTML", "CSS", "JavaScript", "React"],
+    "followers": 5400,
+    "projects": 70,
+    "isVerified": false
+  },
+  {
+    "id": 7,
+    "name": "Abu Nayim Faisal",
+    "image": "https://i.ibb.co.com/6RT263W4/470194855-2034815466940635-1343360215067022956-n.jpg",
+    "bio": "Fullstack Developer & Mentor",
+    "skills": ["JavaScript", "Node.js", "React", "Firebase"],
+    "followers": 6100,
+    "projects": 90,
+    "isVerified": true
+  }
+  
+]

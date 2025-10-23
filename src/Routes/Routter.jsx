@@ -19,6 +19,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import PopularCourses from "../Pages/PopularCourses";
 import Home from "../Pages/Home";
 import ForgotPassword from "../Pages/ForgotPassword";
+import HowItWorks from "../Pages/HowItWorks";
+import TopRatedProviders from "../Pages/TopRatedProviders";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,14 @@ const router = createBrowserRouter([
   {
     path: "/skillcard",
     element: <SkillCard />,
+  },
+  {
+    path: "/howitworks",
+    element:<HowItWorks></HowItWorks>,
+  },
+  {
+    path: "/topRatedProviders",
+    element:<TopRatedProviders></TopRatedProviders>,
   },
 ]);
 
