@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { FaUserTie, FaEnvelope, FaFolderOpen, FaDollarSign, FaStar, FaClock } from "react-icons/fa";
-import { motion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const SkillDetails = () => {
   const { skillId } = useParams();
@@ -20,6 +21,8 @@ const SkillDetails = () => {
         setSkill(found);
       })
       .catch((err) => console.error(err));
+
+    AOS.init({ duration: 800, easing: "ease-in-out", once: true });
   }, [skillId]);
 
   const handleSubmit = (e) => {
@@ -31,53 +34,26 @@ const SkillDetails = () => {
 
   if (!skill) return <p className="text-center py-10 text-gray-500">Loading...</p>;
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const formVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
-  };
-
   return (
-    <motion.div
-      className="max-w-5xl mx-auto px-4 py-10"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">{skill.skillName}</h1>
+    <div className="max-w-5xl mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800" data-aos="fade-down">
+        {skill.skillName}
+      </h1>
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Image */}
-        <motion.div
-          className="md:w-1/2"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="md:w-1/2" data-aos="fade-right">
           <img
             src={skill.image}
             alt={skill.skillName}
             className="w-full h-72 md:h-full object-cover rounded-xl shadow-md"
           />
-        </motion.div>
+        </div>
 
         {/* Details & Form */}
         <div className="md:w-1/2 flex flex-col gap-4">
           {/* Skill Info */}
-          <motion.div
-            className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-3"
-            variants={cardVariants}
-          >
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-3" data-aos="fade-left">
             <p className="flex items-center gap-2"><FaUserTie className="text-blue-500" /> <strong>Provider:</strong> {skill.providerName}</p>
             <p className="flex items-center gap-2"><FaEnvelope className="text-green-500" /> <strong>Email:</strong> {skill.providerEmail}</p>
             <p className="flex items-center gap-2"><FaFolderOpen className="text-purple-500" /> <strong>Category:</strong> {skill.category}</p>
@@ -85,14 +61,10 @@ const SkillDetails = () => {
             <p className="flex items-center gap-2"><FaStar className="text-yellow-400" /> <strong>Rating:</strong> {skill.rating}</p>
             <p className="flex items-center gap-2"><FaClock className="text-red-500" /> <strong>Slots Available:</strong> {skill.slotsAvailable}</p>
             <p className="text-gray-700"><strong>Description:</strong> {skill.description}</p>
-          </motion.div>
+          </div>
 
           {/* Book Session Form */}
-          <motion.form
-            onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-4"
-            variants={formVariants}
-          >
+          <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-md flex flex-col gap-4" data-aos="fade-up">
             <h2 className="text-2xl font-semibold mb-2 text-gray-800">Book a Session</h2>
             <input
               type="text"
@@ -116,10 +88,10 @@ const SkillDetails = () => {
             >
               Book Session
             </button>
-          </motion.form>
+          </form>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
