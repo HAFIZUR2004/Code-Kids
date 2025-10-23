@@ -9,11 +9,12 @@ import { Toaster } from "react-hot-toast";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      {/* পুরো অ্যাপের জন্য Router */}
+      
       <RouterProvider router={router} />
 
-      {/* Toastify alerts এর জন্য global toaster */}
+     
       <Toaster position="top-center" reverseOrder={false} />
     </AuthProvider>
   </StrictMode>
 );
+// commit
