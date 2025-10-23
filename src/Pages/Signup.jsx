@@ -19,6 +19,7 @@ const Signup = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Animations
   const fadeInCard = useSpring({
@@ -43,13 +44,16 @@ const Signup = () => {
     }
 
     try {
+      setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name, photoURL });
+      toast.success("🎉 Signup successful! Welcome aboard.", { duration: 2000 });
 
-      toast.success("🎉 Signup successful! Welcome aboard.");
-      setTimeout(() => navigate("/"), 2500); // delay navigation to show toast
+      setTimeout(() => navigate("/"), 2200);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { duration: 3000 });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,18 +61,27 @@ const Signup = () => {
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
+      setLoading(true);
       await signInWithPopup(auth, provider);
-      toast.success("🌈 Google signup successful! Welcome aboard.");
-      setTimeout(() => navigate("/"), 2500);
+      toast.success("🌈 Google signup successful! Welcome aboard.", { duration: 2000 });
+      setTimeout(() => navigate("/"), 2200);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { duration: 3000 });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4">
-      <animated.div style={fadeInCard} className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg">
-        <animated.h2 style={fadeInTitle} className="text-4xl font-extrabold mb-6 text-center text-black">
+      <animated.div
+        style={fadeInCard}
+        className="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl shadow-lg"
+      >
+        <animated.h2
+          style={fadeInTitle}
+          className="text-3xl sm:text-4xl font-extrabold mb-6 text-center text-black"
+        >
           Create Account
         </animated.h2>
 
@@ -104,7 +117,7 @@ const Signup = () => {
             <FaPhotoVideo className="absolute left-3 top-3.5 text-gray-400" />
             <input
               type="text"
-              placeholder="Photo URL"
+              placeholder="Photo URL (optional)"
               value={photoURL}
               onChange={(e) => setPhotoURL(e.target.value)}
               className="border pl-10 pr-3 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -134,9 +147,12 @@ const Signup = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="bg-blue-500 text-white flex items-center justify-center gap-2 py-2 rounded-md hover:opacity-90 transition transform hover:scale-[1.02]"
+            disabled={loading}
+            className={`bg-blue-500 text-white flex items-center justify-center gap-2 py-2 rounded-md transition transform hover:scale-[1.02] ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"
+            }`}
           >
-            Register
+            {loading ? "Processing..." : "Register"}
           </button>
         </form>
 
@@ -149,11 +165,14 @@ const Signup = () => {
 
         <div className="mt-4 text-center">
           <button
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 w-full rounded-md hover:bg-gray-50 transition transform hover:scale-[1.03]"
             onClick={handleGoogleLogin}
+            disabled={loading}
+            className={`flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 w-full rounded-md transition transform hover:scale-[1.03] ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50"
+            }`}
           >
             <FcGoogle className="text-2xl" />
-            Continue with Google
+            {loading ? "Processing..." : "Continue with Google"}
           </button>
         </div>
       </animated.div>

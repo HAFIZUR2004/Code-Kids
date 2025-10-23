@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { 
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithRedirect, 
+  getRedirectResult 
+} from "firebase/auth";
 import { auth } from "../firebase.config";
 import { toast } from "react-hot-toast";
 import { useSpring, animated } from "@react-spring/web";
@@ -18,6 +24,20 @@ const Login = () => {
 
   const fadeInCard = useSpring({ from: { opacity: 0, transform: "translateY(20px)" }, to: { opacity: 1, transform: "translateY(0)" }, config: { tension: 150, friction: 18 } });
   const fadeInTitle = useSpring({ from: { opacity: 0, transform: "translateY(-20px)" }, to: { opacity: 1, transform: "translateY(0)" }, config: { tension: 170, friction: 20 } });
+
+  // Handle Firebase redirect result (for mobile login)
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          toast.success("🌈 Logged in with Google!");
+          navigate(from, { replace: true });
+        }
+      })
+      .catch(() => {
+        toast.error("⚠️ Google login failed!");
+      });
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,12 +69,18 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      toast.success("🌈 Logged in with Google!");
-      setTimeout(() => navigate(from, { replace: true }), 2500);
-    } catch (error) {
-      toast.error("⚠️ Google login failed!");
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      // Mobile: use redirect
+      await signInWithRedirect(auth, provider);
+    } else {
+      // Desktop: use popup
+      try {
+        await signInWithPopup(auth, provider);
+        toast.success("🌈 Logged in with Google!");
+        setTimeout(() => navigate(from, { replace: true }), 2500);
+      } catch (error) {
+        toast.error("⚠️ Google login failed!");
+      }
     }
   };
 
@@ -111,7 +137,7 @@ const Login = () => {
         </button>
 
         <p className="mt-4 text-center text-sm">
-          Don’t have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
+          Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
         </p>
       </animated.div>
     </div>
