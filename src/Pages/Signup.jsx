@@ -173,6 +173,7 @@ const Signup = () => {
           >
             <FcGoogle className="text-2xl" />
             {loading ? "Processing..." : "Continue with Google"}
+           
           </button>
         </div>
       </animated.div>
