@@ -7,7 +7,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase.config";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useSpring, animated } from "@react-spring/web";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaPhotoVideo } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -20,7 +20,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // React Spring Animations
+  // Animations
   const fadeInCard = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },
     to: { opacity: 1, transform: "translateY(0)" },
@@ -37,23 +37,19 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const uppercase = /[A-Z]/.test(password);
-    const lowercase = /[a-z]/.test(password);
-    if (!uppercase || !lowercase || password.length < 6) {
-      toast.error(
-        "⚠️ Password must be at least 6 characters and include both uppercase and lowercase letters.",
-        { duration: 3500 }
-      );
+    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || password.length < 6) {
+      toast.error("⚠️ Password must be at least 6 chars & include uppercase & lowercase letters.");
       return;
     }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name, photoURL });
-      toast.success("🎉 Signup successful! Welcome aboard.", { duration: 3000 });
-      navigate("/"); // Redirect to Home page
+
+      toast.success("🎉 Signup successful! Welcome aboard.");
+      setTimeout(() => navigate("/"), 2500); // delay navigation to show toast
     } catch (error) {
-      toast.error(error.message, { duration: 3500 });
+      toast.error(error.message);
     }
   };
 
@@ -62,40 +58,22 @@ const Signup = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      toast.success("🌈 Google signup successful! Welcome aboard.", { duration: 3000 });
-      navigate("/"); // Redirect to Home page
+      toast.success("🌈 Google signup successful! Welcome aboard.");
+      setTimeout(() => navigate("/"), 2500);
     } catch (error) {
-      toast.error(error.message, { duration: 3500 });
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4">
-      {/* Global Toaster */}
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        toastOptions={{
-          duration: 3500,
-          style: {
-            fontSize: "16px",
-          },
-        }}
-      />
-
-      <animated.div
-        style={fadeInCard}
-        className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg"
-      >
-        <animated.h2
-          style={fadeInTitle}
-          className="text-4xl font-extrabold mb-6 text-center text-black"
-        >
+      <animated.div style={fadeInCard} className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg">
+        <animated.h2 style={fadeInTitle} className="text-4xl font-extrabold mb-6 text-center text-black">
           Create Account
         </animated.h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          {/* Name Field */}
+          {/* Name */}
           <div className="relative">
             <FaUser className="absolute left-3 top-3.5 text-gray-400" />
             <input
@@ -108,7 +86,7 @@ const Signup = () => {
             />
           </div>
 
-          {/* Email Field */}
+          {/* Email */}
           <div className="relative">
             <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
             <input
@@ -121,7 +99,7 @@ const Signup = () => {
             />
           </div>
 
-          {/* Photo URL Field */}
+          {/* Photo URL */}
           <div className="relative">
             <FaPhotoVideo className="absolute left-3 top-3.5 text-gray-400" />
             <input
@@ -133,7 +111,7 @@ const Signup = () => {
             />
           </div>
 
-          {/* Password Field */}
+          {/* Password */}
           <div className="relative">
             <FaLock className="absolute left-3 top-3.5 text-gray-400" />
             <input
@@ -162,7 +140,6 @@ const Signup = () => {
           </button>
         </form>
 
-        {/* Already have account */}
         <p className="mt-4 text-center text-sm">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-600 hover:underline">
@@ -170,7 +147,6 @@ const Signup = () => {
           </Link>
         </p>
 
-        {/* Continue with Google */}
         <div className="mt-4 text-center">
           <button
             className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 w-full rounded-md hover:bg-gray-50 transition transform hover:scale-[1.03]"

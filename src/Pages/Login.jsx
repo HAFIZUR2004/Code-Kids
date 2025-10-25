@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { toast, Toaster } from "react-hot-toast";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../firebase.config";
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+import { useSpring, animated } from "@react-spring/web";
+import { FaLock, FaEye, FaEyeSlash, FaEnvelope } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { TbLogin2 } from "react-icons/tb";
 
@@ -13,47 +18,83 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
   const from = location.state?.from?.pathname || "/";
 
-  // Email/Password Login
+  const fadeInCard = useSpring({
+    from: { opacity: 0, transform: "translateY(20px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+  });
+
+  const fadeInTitle = useSpring({
+    from: { opacity: 0, transform: "translateY(-20px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+  });
+
+  // ✅ Login
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("⚠️ Please fill in both fields!");
+      return;
+    }
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Login successful!", { duration: 3000 });
-      navigate(from, { replace: true });
+      toast.success("🎉 Logged in successfully!");
+      setTimeout(() => navigate(from, { replace: true }), 2000);
     } catch (error) {
-      toast.error(error.message, { duration: 3500 });
+      switch (error.code) {
+        case "auth/invalid-email":
+          toast.error("📧 Invalid email!");
+          break;
+        case "auth/user-not-found":
+          toast.error("🙁 No account found.");
+          break;
+        case "auth/wrong-password":
+          toast.error("🔒 Wrong password!");
+          break;
+        default:
+          toast.error("⚠️ Something went wrong!");
+      }
     }
   };
 
-  // Google Login
+  // ✅ Google Login
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      toast.success("Login with Google successful!", { duration: 3000 });
-      navigate(from, { replace: true });
+      await signInWithPopup(auth, provider);
+      toast.success("🌈 Logged in with Google!");
+      setTimeout(() => navigate(from, { replace: true }), 2000);
     } catch (error) {
-      toast.error(error.message, { duration: 3500 });
+      toast.error("⚠️ Google login failed!");
     }
+  };
+
+  // ✅ Go to Forgot Password Page
+  const handleForgotPassword = () => {
+    navigate("/forgot-password", { state: { email } });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-4">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl">
-        <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Login</h2>
+      <animated.div
+        style={fadeInCard}
+        className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg"
+      >
+        <animated.h2
+          style={fadeInTitle}
+          className="text-3xl font-extrabold mb-6 text-center text-black"
+        >
+          Login Form
+        </animated.h2>
 
-        {/* Login Form */}
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          {/* Email */}
           <div className="relative">
             <FaEnvelope className="absolute left-3 top-3.5 text-gray-400" />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="border pl-10 pr-3 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -61,12 +102,11 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="relative">
             <FaLock className="absolute left-3 top-3.5 text-gray-400" />
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="Your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="border pl-10 pr-10 py-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -81,7 +121,17 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Login Button */}
+          {/* ✅ Forgot Password */}
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
           <button
             type="submit"
             className="bg-blue-600 text-white py-2 rounded-md flex items-center justify-center gap-2 hover:bg-blue-700 transition transform hover:scale-[1.02]"
@@ -91,38 +141,27 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Forgot Password */}
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Forgot your password?{" "}
-          <Link to="/forgot-password" className="text-blue-600 hover:underline" state={{ email }}>
-            Reset
-          </Link>
-        </p>
-
-        {/* Signup Link */}
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 hover:underline">
-            Sign Up
-          </Link>
-        </p>
-
-        {/* Divider */}
         <div className="flex items-center gap-3 my-5">
           <hr className="flex-1 border-gray-300" />
-          <span className="text-gray-400 text-sm">or</span>
+          <span className="text-gray-500 text-sm">or</span>
           <hr className="flex-1 border-gray-300" />
         </div>
 
-        {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-2 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition transform hover:scale-[1.03]"
         >
           <FcGoogle className="text-2xl" />
-          <span>Continue with Google</span>
+          Continue with Google
         </button>
-      </div>
+
+        <p className="mt-4 text-center text-sm">
+          Don’t have an account?{" "}
+          <Link to="/signup" className="text-blue-600 hover:underline">
+            Sign Up
+          </Link>
+        </p>
+      </animated.div>
     </div>
   );
 };
