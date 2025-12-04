@@ -7,7 +7,8 @@
     "skills": ["JavaScript", "React", "Node.js", "MongoDB"],
     "followers": 12500,
     "projects": 150,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/jhankarmahbubshow"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "skills": ["React", "Redux", "TailwindCSS"],
     "followers": 9800,
     "projects": 120,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/abdurrakibzero"
   },
   {
     "id": 3,
@@ -27,7 +29,8 @@
     "skills": ["Node.js", "Express", "MongoDB", "SQL"],
     "followers": 7500,
     "projects": 95,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/najmolhasan2"
   },
   {
     "id": 4,
@@ -37,7 +40,8 @@
     "skills": ["Figma", "Adobe XD", "TailwindCSS"],
     "followers": 6400,
     "projects": 85,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/ferdouszihad.09"
   },
   {
     "id": 5,
@@ -47,7 +51,8 @@
     "skills": ["Flutter", "Dart", "React Native"],
     "followers": 8200,
     "projects": 110,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/abujakariacse"
   },
   {
     "id": 6,
@@ -57,7 +62,8 @@
     "skills": ["HTML", "CSS", "JavaScript", "React"],
     "followers": 5400,
     "projects": 70,
-    "isVerified": false
+    "isVerified": false,
+    "facebookUrl": "https://www.facebook.com/mohammadanisulislam.shakib"
   },
   {
     "id": 7,
@@ -67,7 +73,7 @@
     "skills": ["JavaScript", "Node.js", "React", "Firebase"],
     "followers": 6199,
     "projects": 91,
-    "isVerified": true
+    "isVerified": true,
+    "facebookUrl": "https://www.facebook.com/faisal.shohag.18"
   }
-  
 ]

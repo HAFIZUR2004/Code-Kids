@@ -1,6 +1,6 @@
 import React from "react";
-import { FaStar, FaDollarSign } from "react-icons/fa"; // ⭐ & 💰 icons
-import { TbChartBarPopular } from "react-icons/tb";
+import { FaStar, FaDollarSign } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const popularCourses = [
   {
@@ -27,56 +27,62 @@ const popularCourses = [
     rating: 4.9,
     price: 29,
   },
+  {
+    id: 4,
+    title: "JavaScript for Kids",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    rating: 4.7,
+    price: 45,
+  },
 ];
 
 const PopularCourses = () => {
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
-          Popular Courses for Kids 
-        </h1>
-        
-       
+  const navigate = useNavigate(); // useNavigate hook
 
-        {/* Courses Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  return (
+    <section className="py-16 bg-[#1B3C53]">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-[#D2C1B6] mb-12">
+          Popular Courses for Kids
+        </h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
           {popularCourses.map((course) => (
             <div
               key={course.id}
-              className="bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer"
+              className="bg-[#234C6A] rounded-3xl border border-[#456882] shadow-md 
+                         hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 
+                         overflow-hidden cursor-pointer flex flex-col h-full"
             >
-              {/* Image */}
-              <div className="overflow-hidden">
+              <div className="overflow-hidden flex justify-center items-center bg-[#1B3C53] p-4">
                 <img
                   src={course.image}
                   alt={course.title}
-                  className="w-full h-56 object-cover transform hover:scale-105 transition-transform duration-500"
+                  className="w-full h-48 sm:h-52 md:h-56 lg:h-60 object-contain"
                 />
               </div>
 
-              {/* Content */}
-              <div className="p-6 text-center">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {course.title}
-                </h3>
+              <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 text-center text-[#D2C1B6]">
+                <h3 className="text-lg sm:text-xl font-semibold">{course.title}</h3>
 
-                {/* Rating & Price */}
-                <div className="flex justify-center gap-6 mt-4 text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <FaStar className="text-yellow-400" />
-                    <span className="font-medium">{course.rating.toFixed(1)}</span>
+                <div className="flex justify-center gap-4 sm:gap-6 mt-4 font-medium">
+                  <div className="flex items-center gap-1 text-yellow-400">
+                    <FaStar />
+                    {course.rating.toFixed(1)}
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FaDollarSign className="text-green-500" />
-                    <span className="font-medium">{course.price}</span>
+                  <div className="flex items-center gap-1 text-green-400">
+                    <FaDollarSign />
+                    {course.price}
                   </div>
                 </div>
 
-                {/* Button */}
-                <button className="mt-6 inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-6 py-2.5 rounded-full hover:bg-gray-800 transition-all duration-300">
+                {/* View Details Button */}
+                <button
+                  onClick={() => navigate(`/skill/${course.id}`)} // Navigate to SkillDetails
+                  className="mt-6 w-full bg-gradient-to-r from-[#1B3C53] to-[#234C6A] text-[#D2C1B6] 
+                             px-6 py-2.5 rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-300"
+                >
                   View Details +
                 </button>
               </div>
@@ -89,4 +95,3 @@ const PopularCourses = () => {
 };
 
 export default PopularCourses;
-// hello 

@@ -1,15 +1,48 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+/* Tailwind */
 @import "tailwindcss";
 @plugin "daisyui";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ================================
+   GLOBAL MAX WIDTH (1440px)
+   ================================ */
+.wrapper-1440 {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
 
+/* Auto apply layout to full project */
+body > * {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
 
-/* Apply globally */
+/* ================================
+   Scroll Animation
+   ================================ */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  display: flex;
+  animation: scroll 25s linear infinite;
+}
+
+/* ================================
+   Global font
+   ================================ */
 body {
   font-family: 'Poppins', sans-serif;
 }

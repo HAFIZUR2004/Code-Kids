@@ -21,6 +21,14 @@ import Home from "../Pages/Home";
 import ForgotPassword from "../Pages/ForgotPassword";
 import HowItWorks from "../Pages/HowItWorks";
 import TopRatedProviders from "../Pages/TopRatedProviders";
+import About from "../Pages/About";
+import Contact from "../Pages/Contact";
+import Support from "../Pages/Support";
+import AllItems from "../Pages/AllItems";
+import Review from "../Pages/Review";
+import ErrorPage from "../Pages/ErrorPage";
+import ExplorePage from "../Pages/ExplorePage";
+
 
 const router = createBrowserRouter([
   {
@@ -31,6 +39,23 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />, // Home page showing PopularSkills + PopularCourses
+      },
+
+      {
+        path: "/about-us",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/support",
+        element: <Support />,
+      },
+      {
+        path: "/items",
+        element: <AllItems />,
       },
 
       // Profile
@@ -64,11 +89,14 @@ const router = createBrowserRouter([
   // Authentication
   {
     path: "/signup",
-    element: <Signup/>,
+    element: <Signup />,
   },
   {
     path: "/login",
     element: <Login />,
+  }, {
+    path: "*",
+    element: <ErrorPage />,
   },
   // Forgot Password
   {
@@ -83,12 +111,20 @@ const router = createBrowserRouter([
     element: <SkillCard />,
   },
   {
+    path: "/explore",
+    element: <ExplorePage />,
+  },
+  {
     path: "/howitworks",
-    element:<HowItWorks></HowItWorks>,
+    element: <HowItWorks></HowItWorks>,
+  },
+  {
+    path: "/review",
+    element: <Review></Review>,
   },
   {
     path: "/topRatedProviders",
-    element:<TopRatedProviders></TopRatedProviders>,
+    element: <TopRatedProviders></TopRatedProviders>,
   },
 ]);
 

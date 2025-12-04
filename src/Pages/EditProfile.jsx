@@ -1,10 +1,10 @@
-// src/Pages/EditProfile.jsx
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { FaUserCircle, FaEdit, FaSave } from "react-icons/fa";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../firebase.config";
+import { motion } from "framer-motion";
 
 const EditProfile = () => {
   const { user } = useContext(AuthContext);
@@ -32,58 +32,82 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 shadow-xl rounded-2xl p-8">
-      <h2 className="text-3xl font-bold mb-8 text-center text-purple-700">
-        <FaEdit className="inline mr-2" /> Edit Profile
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className="max-w-md mx-auto mt-16 p-8   rounded-3xl shadow-2xl bg-gradient-to-br from-[#456882] via-[#1B3C53] to-[#456882]"
+    >
+      {/* Header */}
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-8 text-center text-[#D2C1B6] flex items-center justify-center gap-2">
+        <FaEdit className="text-[#D2C1B6]" /> Edit Profile
       </h2>
 
-      <div className="flex flex-col items-center mb-8 relative">
+      {/* Profile Picture */}
+      <div className="flex flex-col  items-center mb-8 relative group">
         {photo ? (
-          <img
+          <motion.img
             src={photo}
             alt="Profile"
-            className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
+            className="w-28 h-28 rounded-full border-4 border-[#D2C1B6] shadow-xl object-cover"
+            whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 0 25px #D2C1B6" }}
+            transition={{ type: "spring", stiffness: 300 }}
           />
         ) : (
-          <FaUserCircle className="w-28 h-28 text-gray-400 shadow-lg" />
+          <motion.div
+            className="w-28 h-28 text-[#D2C1B6] shadow-lg flex items-center justify-center rounded-full text-6xl bg-[#1B3C53]"
+            whileHover={{ scale: 1.15, boxShadow: "0 0 25px #D2C1B6" }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <FaUserCircle />
+          </motion.div>
         )}
-        <div className="absolute bottom-0 right-0 bg-purple-600 text-white p-2 rounded-full shadow-md cursor-pointer hover:bg-purple-700 transition">
+        <motion.div
+          className="absolute bottom-0 right-0 bg-gradient-to-r from-[#D2C1B6] to-[#456882] text-[#1B3C53] p-2 rounded-full shadow-md cursor-pointer"
+          whileHover={{ scale: 1.2, rotate: 360 }}
+        >
           <FaEdit />
-        </div>
+        </motion.div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-gray-700 font-semibold mb-2">Name</label>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Name */}
+        <motion.div whileFocus={{ scale: 1.02 }}>
+          <label className="block text-[#D2C1B6] font-semibold mb-2">Name</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full border border-purple-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-sm"
+            className="w-full px-4 py-3 rounded-xl bg-[#1B3C53] text-[#D2C1B6] border-2 border-transparent focus:border-[#D2C1B6] shadow-lg placeholder-[#D2C1B6]/60 transition-all duration-300 hover:shadow-[#D2C1B6]/50"
             placeholder="Enter your name"
             required
           />
-        </div>
+        </motion.div>
 
-        <div>
-          <label className="block text-gray-700 font-semibold mb-2">Photo URL</label>
+        {/* Photo URL */}
+        <motion.div whileFocus={{ scale: 1.02 }}>
+          <label className="block text-[#D2C1B6] font-semibold mb-2">Photo URL</label>
           <input
             type="text"
             value={photo}
             onChange={(e) => setPhoto(e.target.value)}
-            className="w-full border border-purple-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-sm"
+            className="w-full px-4 py-3 rounded-xl bg-[#1B3C53] text-[#D2C1B6] border-2 border-transparent focus:border-[#D2C1B6] shadow-lg placeholder-[#D2C1B6]/60 transition-all duration-300 hover:shadow-[#D2C1B6]/50"
             placeholder="Enter photo URL"
           />
-        </div>
+        </motion.div>
 
-        <button
+        {/* Save Button */}
+        <motion.button
           type="submit"
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-colors font-bold flex justify-center items-center gap-2"
+          className="w-full py-3 rounded-2xl font-bold flex justify-center items-center gap-3 text-[#1B3C53] bg-gradient-to-r from-[#D2C1B6] to-[#456882] shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <FaSave /> Save Changes
-        </button>
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
